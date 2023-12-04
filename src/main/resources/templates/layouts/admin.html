@@ -92,6 +92,8 @@
     </script>
 </head>
 <body>
+    
+    <div id="loader"></div>
     <div class="wrapper">
 
         <div class="iq-sidebar  sidebar-default ">
@@ -436,6 +438,20 @@
   <script src="/admin-asset/assets/js/app.js"></script>
 
   <script src="/admin-asset/assets/vendor/moment.min.js"></script>
+  
+  <script>
+    window.addEventListener("load", () => {
+        var loader = document.getElementById("loader");
+
+        setTimeout(() => {
+            loader.classList.add("loader--hidden");
+        }, 500);
+
+        loader.addEventListener("transitionend", () => {
+            // document.body.removeChild(loader);
+        });
+    });
+</script>
 
 </body>
 </html>

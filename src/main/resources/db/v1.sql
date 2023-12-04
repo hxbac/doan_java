@@ -14,10 +14,11 @@ CREATE TABLE user (
     role VARCHAR(255)
 );
 INSERT INTO user (name, email, password, address, role) VALUES
-('John Doe', 'user1@gmail.com', '25d55ad283aa400af464c76d713c07ad', '123 Main St', 'ADMIN'),
-('Jane Smith', 'user2@gmail.com', '25d55ad283aa400af464c76d713c07ad', '456 Oak St', 'ADMIN'),
-('Bob Johnson', 'user3@gmail.com', '25d55ad283aa400af464c76d713c07ad', '789 Elm St', 'ADMIN'),
-('Alice Williams', 'user4@gmail.com', '25d55ad283aa400af464c76d713c07ad', '101 Pine St', 'ADMIN'),
+('John Doe', 'admin@gmail.com', '25d55ad283aa400af464c76d713c07ad', '123 Main St', 'ADMIN'),
+('John Doe', 'user1@gmail.com', '25d55ad283aa400af464c76d713c07ad', '123 Main St', 'USER'),
+('Jane Smith', 'user2@gmail.com', '25d55ad283aa400af464c76d713c07ad', '456 Oak St', 'USER'),
+('Bob Johnson', 'user3@gmail.com', '25d55ad283aa400af464c76d713c07ad', '789 Elm St', 'USER'),
+('Alice Williams', 'user4@gmail.com', '25d55ad283aa400af464c76d713c07ad', '101 Pine St', 'USER'),
 ('Charlie Brown', 'user5@gmail.com', '25d55ad283aa400af464c76d713c07ad', '321 Cedar St', 'USER');
 
 DROP TABLE IF EXISTS product;

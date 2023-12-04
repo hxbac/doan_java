@@ -19,13 +19,13 @@ public class PostController extends Base {
     public String index(Model model) {
         List<Post> posts = postRepository.findAll();
         model.addAttribute("posts", posts); 
-        return "client/shop/index";
+        return "client/post/index";
     }
 
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable Long id, Model model) {
         Post post = postRepository.findById(id).orElse(null);
         model.addAttribute("post", post); 
-        return "client/shop/detail";
+        return "client/post/detail";
     }
 }

@@ -43,9 +43,9 @@ CREATE TABLE menu (
     `orderNum` INT
 );
 INSERT INTO menu (name, link, `orderNum`) VALUES 
-('Item1', 'link1', 1),
-('Item2', 'link2', 2),
-('Item3', 'link3', 3),
+('Trang chủ', '/', 1),
+('Cửa hàng', '/shop/index', 2),
+('Bài  viết', '/post/index', 3),
 ('Item4', 'link4', 4),
 ('Item5', 'link5', 5);
 

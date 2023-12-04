@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/client.html}">
+<head>
+</head>
+<body>
+    <div layout:fragment="content">
+        <!-- Breadcrumb Start -->
+        <div class="container-fluid">
+            <div class="row px-xl-5">
+                <div class="col-12">
+                    <nav class="breadcrumb bg-light mb-30">
+                        <a class="breadcrumb-item text-dark" href="/">Trang chủ</a>
+                        <a class="breadcrumb-item text-dark" href="/shop">Cửa hàng</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+
+        <div class="container-fluid">
+            <div class="row px-xl-5">
+                <div class="col-12">
+                    <div class="row pb-3">
+                        <div class="col-lg-4 col-md-6 col-sm-6 pb-1" th:each="product : ${products}">
+                            <div class="product-item bg-light mb-4">
+                                <div class="product-img position-relative overflow-hidden">
+                                    <img class="img-fluid w-100" th:src="${product.image}" alt="">
+                                    <div class="product-action">
+                                        <a class="btn btn-outline-dark btn-square" th:href="@{/shop/detail/{id}(id=${product.id})}"><i
+                                                class="fa fa-search"></i></a>
+                                    </div>
+                                </div>
+                                <div class="text-center py-4 d-flex flex-column">
+                                    <a class="h6 text-decoration-none text-truncate mx-auto" th:href="@{/shop/detail/{id}(id=${product.id})}" style="width: 80%; display: block;" th:text="${product.name}"></a>
+                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                        <h5><span th:text="${product.getPriceStr()}"></span></h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Shop Product End -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/admin.html}">
+<head>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Danh sách bài viết</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <div id="datatable_wrapper" class="dataTables_wrapper">
+                                    <a class="btn btn-primary mb-3" href="/admin/post/create">Thêm bài viết</a>
+                                    <table id="datatable" class="table data-table table-striped dataTable" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                            <tr class="ligth" role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                    colspan="1" aria-sort="ascending"
+                                                    style="width: 158.094px;">Id</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                    colspan="1" style="width: 247.594px;">Tiêu đề</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                    colspan="1" style="width: 118.938px;">Tác giả</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                    colspan="1" style="width: 118.938px;">Ảnh</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                    colspan="1" style="width: 39.7031px;">Chức năng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr role="row" class="odd" th:each="post : ${posts}">
+                                                <td class="sorting_1" th:text="${post.id}"></td>
+                                                <td th:text="${post.title}"></td>
+                                                <td th:text="${post.author}"></td>
+                                                <td th:text="${post.image}"></td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <a th:href="@{/admin/post/edit/{id}(id=${post.id})}" class="btn btn-warning">Sửa</a>
+                                                        <a th:href="@{/admin/post/delete/{id}(id=${post.id})}" class="btn btn-danger mx-2">Xoá</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

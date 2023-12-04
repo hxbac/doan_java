@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Trang quản trị</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/admin-asset/assets/images/favicon.ico" />
+    <link rel="stylesheet" href="/admin-asset/assets/css/backend-plugin.min.css">
+    <link rel="stylesheet" href="/admin-asset/assets/css/backend.css?v=1.0.0">
+    <link rel="stylesheet" href="/admin-asset/assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="/admin-asset/assets/vendor/remixicon/fonts/remixicon.css">
+
+    <link rel="stylesheet" href="/admin-asset/assets/vendor/tui-calendar/tui-calendar/dist/tui-calendar.css">
+    <link rel="stylesheet" href="/admin-asset/assets/vendor/tui-calendar/tui-date-picker/dist/tui-date-picker.css">
+    <link rel="stylesheet" href="/admin-asset/assets/vendor/tui-calendar/tui-time-picker/dist/tui-time-picker.css">
+
+    <!-- Place the first <script> tag in your HTML's <head> -->
+    <script src="https://cdn.tiny.cloud/1/ylkuyyuu2rf3zujr9cq1s09glx041qzempny5is893lc5jb3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+    <script>
+        // tinymce.init({
+        //     selector: 'textarea',
+        //     plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+        //     toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        //     tinycomments_mode: 'embedded',
+        //     tinycomments_author: 'Author name',
+        //     mergetags_list: [
+        //     { value: 'First.Name', title: 'First Name' },
+        //     { value: 'Email', title: 'Email' },
+        //     ],
+        //     ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+        // });
+        
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+            toolbar: 'undo redo | link image table mergetags | code | blocks fontfamily fontsize | bold italic underline strikethrough | align lineheight ',
+            /* enable title field in the Image dialog*/
+            image_title: true,
+            /* enable automatic uploads of images represented by blob or data URIs*/
+            automatic_uploads: true,
+            /*
+                URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
+                images_upload_url: 'postAcceptor.php',
+                here we add custom filepicker only to Image dialog
+            */
+            file_picker_types: 'image',
+            /* and here's our custom image picker*/
+            file_picker_callback: function (cb, value, meta) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
+
+                /*
+                Note: In modern browsers input[type="file"] is functional without
+                even adding it to the DOM, but that might not be the case in some older
+                or quirky browsers like IE, so you might want to add it to the DOM
+                just in case, and visually hide it. And do not forget do remove it
+                once you do not need it anymore.
+                */
+
+                input.onchange = function () {
+                var file = this.files[0];
+
+                var reader = new FileReader();
+                reader.onload = function () {
+                    /*
+                    Note: Now we need to register the blob in TinyMCEs image blob
+                    registry. In the next release this part hopefully won't be
+                    necessary, as we are looking to handle it internally.
+                    */
+                    var id = 'blobid' + (new Date()).getTime();
+                    var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                    var base64 = reader.result.split(',')[1];
+                    var blobInfo = blobCache.create(id, file, base64);
+                    blobCache.add(blobInfo);
+
+                    /* call the callback and populate the Title field with the file name */
+                    cb(blobInfo.blobUri(), { title: file.name });
+                };
+                reader.readAsDataURL(file);
+                };
+
+                input.click();
+            },
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        });
+
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+
+        <div class="iq-sidebar  sidebar-default ">
+            <div class="iq-sidebar-logo d-flex align-items-center">
+                <a href="/" class="header-logo">
+                    <h3 class="logo-title light-logo">Multi Shop</h3>
+                </a>
+                <div class="iq-menu-bt-sidebar ml-0">
+                    <i class="las la-bars wrapper-menu"></i>
+                </div>
+            </div>
+            <div class="data-scrollbar" data-scroll="1">
+                <nav class="iq-sidebar-menu">
+                    <ul id="iq-sidebar-toggle" class="iq-menu">
+                        <li class="">
+                            <a href="/admin" class="svg-icon">
+                                <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                                <span class="ml-2">Dashboards</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="/admin/product/index" class="svg-icon">
+                                <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                                <span class="ml-2">Quản lý sản phẩm</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="/admin/user/index" class="svg-icon">
+                                <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                                <span class="ml-2">Quản lý người dùng</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="/admin/post/index" class="svg-icon">
+                                <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                                <span class="ml-2">Quản lý bài viết</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="/admin/menu/index" class="svg-icon">
+                                <svg class="svg-icon" width="25" height="25" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg>
+                                <span class="ml-2">Quản lý menu</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="pt-5 pb-2"></div>
+            </div>
+        </div>
+        
+
+        <div class="iq-top-navbar">
+            <div class="iq-navbar-custom">
+                <nav class="navbar navbar-expand-lg navbar-light p-0">
+                    <div class="iq-navbar-logo d-flex align-items-center justify-content-between">
+                        <i class="ri-menu-line wrapper-menu"></i>
+                        <a href="{{ asset('') }}admin/backend/index.html" class="header-logo">
+                            <h4 class="logo-title text-uppercase">Multi Shop</h4>
+        
+                        </a>
+                    </div>
+                    <div class="navbar-breadcrumb">
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-label="Toggle navigation">
+                            <i class="ri-menu-3-line"></i>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ml-auto navbar-list align-items-center">
+                                <li>
+                                    <div class="iq-search-bar device-search">
+                                        <form action="#" class="searchbox">
+                                            <a class="search-link" href="#"><i class="ri-search-line"></i></a>
+                                            <input type="text" class="text search-input"
+                                                placeholder="Tìm kiếm...">
+                                        </form>
+                                    </div>
+                                </li>
+                                <li class="nav-item nav-icon search-content">
+                                    <a href="#" class="search-toggle rounded" id="dropdownSearch"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="ri-search-line"></i>
+                                    </a>
+                                    <div class="iq-search-bar iq-sub-dropdown dropdown-menu"
+                                        aria-labelledby="dropdownSearch">
+                                        <form action="#" class="searchbox p-2">
+                                            <div class="form-group mb-0 position-relative">
+                                                <input type="text" class="text search-input font-size-12"
+                                                    placeholder="type here to search...">
+                                                <a href="#" class="search-link"><i
+                                                        class="las la-search"></i></a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
+                                <li class="nav-item nav-icon nav-item-icon dropdown">
+                                    <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton2"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-mail">
+                                            <path
+                                                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                            </path>
+                                            <polyline points="22,6 12,13 2,6"></polyline>
+                                        </svg>
+                                        <span class="bg-primary"></span>
+                                    </a>
+                                    <div class="iq-sub-dropdown dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                        <div class="card shadow-none m-0">
+                                            <div class="card-body p-0 ">
+                                                <div class="cust-title p-3">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <h5 class="mb-0">All Messages</h5>
+                                                        <a class="badge badge-primary badge-card" href="#">3</a>
+                                                    </div>
+                                                </div>
+                                                <div class="px-3 pt-0 pb-0 sub-card">
+                                                    <a href="#" class="iq-sub-card">
+                                                        <div
+                                                            class="media align-items-center cust-card py-3 border-bottom">
+                                                            <div class="">
+                                                            </div>
+                                                            <div class="media-body ml-3">
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-between">
+                                                                    <h6 class="mb-0">Emma Watson</h6>
+                                                                    <small class="text-dark"><b>12 : 47 pm</b></small>
+                                                                </div>
+                                                                <small class="mb-0">Lorem ipsum dolor sit
+                                                                    amet</small>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" class="iq-sub-card">
+                                                        <div
+                                                            class="media align-items-center cust-card py-3 border-bottom">
+                                                            <div class="">
+                                                            </div>
+                                                            <div class="media-body ml-3">
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-between">
+                                                                    <h6 class="mb-0">Ashlynn Franci</h6>
+                                                                    <small class="text-dark"><b>11 : 30 pm</b></small>
+                                                                </div>
+                                                                <small class="mb-0">Lorem ipsum dolor sit
+                                                                    amet</small>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" class="iq-sub-card">
+                                                        <div class="media align-items-center cust-card py-3">
+                                                            <div class="">
+                                                            </div>
+                                                            <div class="media-body ml-3">
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-between">
+                                                                    <h6 class="mb-0">Kianna Carder</h6>
+                                                                    <small class="text-dark"><b>11 : 21 pm</b></small>
+                                                                </div>
+                                                                <small class="mb-0">Lorem ipsum dolor sit
+                                                                    amet</small>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <a class="right-ic btn btn-primary btn-block position-relative p-2"
+                                                    href="#" role="button">
+                                                    View All
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item nav-icon nav-item-icon dropdown">
+                                    <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-bell">
+                                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                                        </svg>
+                                        <span class="bg-primary "></span>
+                                    </a>
+                                    <div class="iq-sub-dropdown dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <div class="card shadow-none m-0">
+                                            <div class="card-body p-0 ">
+                                                <div class="cust-title p-3">
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <h5 class="mb-0">Notifications</h5>
+                                                        <a class="badge badge-primary badge-card" href="#">3</a>
+                                                    </div>
+                                                </div>
+                                                <div class="px-3 pt-0 pb-0 sub-card">
+                                                    <a href="#" class="iq-sub-card">
+                                                        <div
+                                                            class="media align-items-center cust-card py-3 border-bottom">
+                                                            <div class="">
+                                                            </div>
+                                                            <div class="media-body ml-3">
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-between">
+                                                                    <h6 class="mb-0">Emma Watson</h6>
+                                                                    <small class="text-dark"><b>12 : 47 pm</b></small>
+                                                                </div>
+                                                                <small class="mb-0">Lorem ipsum dolor sit
+                                                                    amet</small>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" class="iq-sub-card">
+                                                        <div
+                                                            class="media align-items-center cust-card py-3 border-bottom">
+                                                            <div class="">
+                                                            </div>
+                                                            <div class="media-body ml-3">
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-between">
+                                                                    <h6 class="mb-0">Ashlynn Franci</h6>
+                                                                    <small class="text-dark"><b>11 : 30 pm</b></small>
+                                                                </div>
+                                                                <small class="mb-0">Lorem ipsum dolor sit
+                                                                    amet</small>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <a href="#" class="iq-sub-card">
+                                                        <div class="media align-items-center cust-card py-3">
+                                                            <div class="">
+                                                            </div>
+                                                            <div class="media-body ml-3">
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-between">
+                                                                    <h6 class="mb-0">Kianna Carder</h6>
+                                                                    <small class="text-dark"><b>11 : 21 pm</b></small>
+                                                                </div>
+                                                                <small class="mb-0">Lorem ipsum dolor sit
+                                                                    amet</small>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <a class="right-ic btn btn-primary btn-block position-relative p-2"
+                                                    href="#" role="button">
+                                                    View All
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item nav-icon dropdown caption-content">
+                                    <a href="#" class="search-toggle dropdown-toggle  d-flex align-items-center"
+                                        id="dropdownMenuButton4" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <div class="caption ml-3">
+                                            <h6 class="mb-0 line-height">HXB<i
+                                                    class="las la-angle-down ml-2"></i></h6>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        
+
+        <div class="content-page">
+            <section layout:fragment="content">
+              <p>Page content goes here</p>
+            </section>
+        </div>
+    </div>
+    <footer class="iq-footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="">Privacy Policy</a>
+                        </li>
+                        <li class="list-inline-item"><a href="">Terms of Use</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 text-right">
+                    <span class="mr-1">
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script>©
+                    </span> <a href="#" class="">Webkit</a>.
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+  <!-- Backend Bundle JavaScript -->
+  <script src="/admin-asset/assets/js/backend-bundle.min.js"></script>
+
+  <!-- Table Treeview JavaScript -->
+  <script src="/admin-asset/assets/js/table-treeview.js"></script>
+
+  <!-- Chart Custom JavaScript -->
+  <script src="/admin-asset/assets/js/customizer.js"></script>
+
+  <!-- Chart Custom JavaScript -->
+  <script async src="/admin-asset/assets/js/chart-custom.js"></script>
+  <!-- Chart Custom JavaScript -->
+  <script async src="/admin-asset/assets/js/slider.js"></script>
+
+  <!-- app JavaScript -->
+  <script src="/admin-asset/assets/js/app.js"></script>
+
+  <script src="/admin-asset/assets/vendor/moment.min.js"></script>
+
+</body>
+</html>

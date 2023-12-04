@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/admin.html}">
+<head>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Thêm menu</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" th:object="${menu}" th:action="@{/admin/menu/store}">
+                                <div class="form-group">
+                                    <label for="name">Tên menu</label>
+                                    <input type="text" class="form-control" th:field="*{name}" name="name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Link</label>
+                                    <input type="text" class="form-control" th:field="*{link}" name="link">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd">Thứ tự</label>
+                                    <input type="number" class="form-control" th:field="*{orderNum}" name="orderNum">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Thêm</button>
+                                <a href="/admin/menu/index" class="btn bg-danger">Quay lại</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

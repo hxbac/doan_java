@@ -30,8 +30,6 @@
                                                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
                                                     colspan="1" style="width: 118.938px;">Ảnh</th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                    colspan="1" style="width: 39.7031px;">Mô tả</th>
-                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
                                                     colspan="1" style="width: 39.7031px;">Chức năng</th>
                                             </tr>
                                         </thead>
@@ -40,8 +38,7 @@
                                                 <td class="sorting_1" th:text="${product.id}"></td>
                                                 <td th:text="${product.name}"></td>
                                                 <td th:text="${product.price}"></td>
-                                                <td th:text="${product.image}"></td>
-                                                <td th:text="${product.description}"></td>
+                                                <td><img th:src="${product.image}" height="100" alt=""></td>
                                                 <td>
                                                     <div class="d-flex">
                                                         <a th:href="@{/admin/product/edit/{id}(id=${product.id})}" class="btn btn-warning">Sửa</a>

@@ -5,13 +5,14 @@ import com.doan.shop.model.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.ui.Model;
 
 import com.doan.shop.repository.PostRepository;
 
 @Controller
 @RequestMapping(path = "/admin/post")
-public class AdminPost {
+public class AdminPost extends BaseAdmin {
     @Autowired
     private PostRepository postRepository;
 
@@ -29,7 +30,11 @@ public class AdminPost {
     }
 
     @PostMapping(value = "/store")
-    public String store(@ModelAttribute Post form) {
+    public String store(@ModelAttribute Post form, @RequestParam("inputImage") MultipartFile file) {
+        form.setImage("");
+        if (!file.isEmpty()) {
+            form.setImage(this.uploadFile(file));
+        }
         postRepository.save(form);
         return "redirect:/admin/post/index";
     }
@@ -42,11 +47,13 @@ public class AdminPost {
     }
 
     @PostMapping("/update/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute Post post) {
+    public String update(@PathVariable Long id, @ModelAttribute Post post, @RequestParam("inputImage") MultipartFile file) {
         Post postUpdate = postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Không tồn tại bản ghi"));
         postUpdate.setTitle(post.getTitle());
         postUpdate.setContent(post.getContent());
-        postUpdate.setImage(post.getImage());
+        if (!file.isEmpty()) {
+            postUpdate.setImage(this.uploadFile(file));
+        }
         postUpdate.setAuthor(post.getAuthor());
         postRepository.save(postUpdate);
         return "redirect:/admin/post/index";

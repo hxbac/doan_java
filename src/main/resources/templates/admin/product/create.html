@@ -14,14 +14,17 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form method="post" th:object="${product}" th:action="@{/admin/product/store}">
+                            <form method="post" th:object="${product}" th:action="@{/admin/product/store}" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="name">Tên sản phẩm</label>
                                     <input type="text" class="form-control" th:field="*{name}" name="name">
                                 </div>
                                 <div class="form-group">
                                     <label for="pwd">Ảnh</label>
-                                    <input type="file" class="form-control" th:field="*{image}" name="image">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="inputImage" id="input-select-file">
+                                        <label class="custom-file-label" for="input-select-file">Choose file</label>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="pwd">Giá</label>

@@ -14,7 +14,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form method="post" th:object="${post}" th:action="@{/admin/post/store}">
+                            <form method="post" th:object="${post}" th:action="@{/admin/post/store}" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label for="name">Tiêu đề</label>
                                     <input type="text" class="form-control" th:field="*{title}" name="name">
@@ -22,7 +22,7 @@
                                 <div class="form-group">
                                     <label for="name">Ảnh</label>
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" th:field="*{image}" name="image" id="customFile">
+                                        <input type="file" class="custom-file-input" name="inputImage" id="customFile">
                                         <label class="custom-file-label" for="customFile">Choose file</label>
                                     </div>
                                 </div>

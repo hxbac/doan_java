@@ -86,3 +86,25 @@ CREATE TABLE cart (
     productID BIGINT,
     quantity INT
 );
+
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    userID BIGINT,
+    fullname VARCHAR(255),
+    phone VARCHAR(20),
+    address TEXT,
+    total BIGINT,
+    status INT,
+    note TEXT,
+    message TEXT
+);
+
+DROP TABLE IF EXISTS `orderDetail`;
+CREATE TABLE orderDetail (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    orderID BIGINT,
+    productID BIGINT,
+    price BIGINT,
+    quantity INT
+);

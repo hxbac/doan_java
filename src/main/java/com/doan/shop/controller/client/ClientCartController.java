@@ -29,15 +29,10 @@ public class ClientCartController extends Base {
     @GetMapping("/index")
     public String index(HttpSession session, Model model) {
         User userLogin = this.getUserLogin(session);
-        List<Object[]> carts = cartRepository.findAllByUserIDWithProduct(userLogin.getId());
-        List<CartProductDTO> cartProductDTOs = new ArrayList<>();
+        List<CartProductDTO> cartProductDTOs = cartRepository.findAllByUserIDWithProduct(userLogin.getId());
         Long totalPriceCart = 0L;
-        for (Object[] objects : carts) {
-            Cart cart = (Cart) objects[0];
-            Product product = (Product) objects[1];
-            CartProductDTO cartProductDTO = new CartProductDTO(cart, product);
-            cartProductDTOs.add(cartProductDTO);
-            totalPriceCart += cart.getQuantity() * product.getPrice();
+        for (CartProductDTO cart : cartProductDTOs) {
+            totalPriceCart += cart.getQuantity() * cart.getPrice();
         }
         model.addAttribute("carts", cartProductDTOs);
         model.addAttribute("totalPriceCart", this.getPriceStr(totalPriceCart));

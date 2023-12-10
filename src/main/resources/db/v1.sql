@@ -78,3 +78,11 @@ INSERT INTO contact (name, email, message) VALUES
 ('Bob Johnson', 'bob.johnson@example.com', 'This is the third message.'),
 ('Alice Brown', 'alice.brown@example.com', 'Message number 4.'),
 ('Charlie Wilson', 'charlie.wilson@example.com', 'The fifth and final message.');
+
+DROP TABLE IF EXISTS cart;
+CREATE TABLE cart (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    userID BIGINT,
+    productID BIGINT,
+    quantity INT
+);

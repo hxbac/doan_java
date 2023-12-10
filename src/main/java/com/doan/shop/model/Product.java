@@ -2,7 +2,6 @@ package com.doan.shop.model;
 
 import java.text.NumberFormat;
 import java.util.Locale;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

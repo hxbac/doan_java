@@ -1,6 +1,8 @@
-package com.doan.shop.controller;
+package com.doan.shop.controller.admin;
 
 import java.util.List;
+
+import com.doan.shop.controller.BaseAdmin;
 import com.doan.shop.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

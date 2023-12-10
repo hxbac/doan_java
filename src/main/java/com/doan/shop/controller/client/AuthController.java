@@ -1,4 +1,4 @@
-package com.doan.shop.controller;
+package com.doan.shop.controller.client;
 
 import java.util.List;
 

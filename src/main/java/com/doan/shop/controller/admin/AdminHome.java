@@ -1,4 +1,4 @@
-package com.doan.shop.controller;
+package com.doan.shop.controller.admin;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

@@ -1,6 +1,8 @@
 package com.doan.shop.controller;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,8 +35,19 @@ public class Base {
         return menuRepository.findAll();
     }
 
-    // @RequestMapping(path = "/error/404.html")
-    // public String abort404() {
-    //     return "errors/404";
-    // }
+    public User getUserLogin(HttpSession session) {
+        Long userID = (Long) session.getAttribute("userID");
+        if (userID == null) {
+            userID = -1L;
+        }
+        User user = userRepository.findById(userID).orElse(null);
+        return user;
+    }
+
+    
+
+    public String getPriceStr(Long price) {
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        return numberFormat.format(price);
+    }
 }

@@ -1,4 +1,4 @@
-package com.doan.shop.controller;
+package com.doan.shop.controller.admin;
 
 import java.util.List;
 import com.doan.shop.model.Menu;

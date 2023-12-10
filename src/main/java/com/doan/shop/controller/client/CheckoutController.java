@@ -1,5 +1,6 @@
 package com.doan.shop.controller.client;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import com.doan.shop.controller.Base;
@@ -50,7 +51,8 @@ public class CheckoutController extends Base {
         User userLogin = this.getUserLogin(session);
 
         order.setUser(userLogin);
-        order.setStatus(order.statusOrder().get("ORDER"));
+        order.setStatus(0);
+        order.setCreatedAt(LocalDateTime.now());
         orderRepository.save(order);
 
         List<CartProductDTO> cartProductDTOs = cartRepository.findAllByUserIDWithProduct(userLogin.getId());
@@ -73,6 +75,6 @@ public class CheckoutController extends Base {
         orderRepository.save(order);
         orderDetailRepository.saveAll(orderDetails);
         cartRepository.deleteByUserID(userLogin.getId());
-        return "redirect:/cart/index";
+        return "redirect:/order/index";
     }
 }

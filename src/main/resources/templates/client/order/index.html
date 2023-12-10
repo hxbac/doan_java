@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/client.html}">
+
+<head>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <style>
+            td,
+            th {
+                vertical-align: middle !important;
+            }
+        </style>
+        <!-- Breadcrumb Start -->
+        <div class="container-fluid">
+            <div class="row px-xl-5">
+                <div class="col-12">
+                    <nav class="breadcrumb bg-light mb-30">
+                        <a class="breadcrumb-item text-dark" href="/">Trang chủ</a>
+                        <a class="breadcrumb-item text-dark" href="/shop/index">Cửa hàng</a>
+                        <span class="breadcrumb-item active">Đặt hàng</span>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumb End -->
+
+
+        <div class="container-fluid pb-5">
+            <div class="row px-xl-5">
+                <div class="col-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Mã đơn hàng</th>
+                                <th scope="col">Ngày đặt</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Thông báo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="order : ${orders}">
+                                <th scope="row"><a th:href="@{/order/detail/{id}(id=${order.id})}">Đơn hàng <span th:text="${order.id}"></span></a></th>
+                                <td th:text="${order.getTimeCreate()}"></td>
+                                <td>
+                                    <div class="text-center" style="width: max-content;">[(${order.getStatusStr(false)})]</div>
+                                </td>
+                                <td th:text="${order.message}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

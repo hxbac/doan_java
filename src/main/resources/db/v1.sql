@@ -97,7 +97,8 @@ CREATE TABLE `orders` (
     total BIGINT,
     status INT,
     note TEXT,
-    message TEXT
+    message TEXT,
+    created_at DATETIME
 );
 
 DROP TABLE IF EXISTS `orderDetail`;

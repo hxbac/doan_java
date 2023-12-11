@@ -37,6 +37,7 @@ public class AuthController {
             return "client/auth/login";
         }
         session.setAttribute("userID", userLogin.get(0).getId());
+        session.setAttribute("role", userLogin.get(0).getRole());
         return "redirect:/";
     }
 
@@ -57,6 +58,7 @@ public class AuthController {
         userRepository.save(user);
         Long userID = user.getId();
         session.setAttribute("userID", userID);
+        session.setAttribute("role", "USER");
         return "redirect:/";
     }
 

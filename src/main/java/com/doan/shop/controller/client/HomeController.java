@@ -13,7 +13,8 @@ import org.springframework.ui.Model;
 @RequestMapping(path = "/")
 public class HomeController extends Base {
     @RequestMapping("/")
-    public String index(Model model) {
+    public String index(Model model, HttpSession session) {
+        model.addAttribute("role", session.getAttribute("role"));
         return "client/home/index";
     }
 

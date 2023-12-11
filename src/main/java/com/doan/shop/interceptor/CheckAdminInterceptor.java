@@ -12,8 +12,10 @@ public class CheckAdminInterceptor implements HandlerInterceptor {
             throws Exception {
         HttpSession session = request.getSession();
         String role = (String) session.getAttribute("role");
-        if (role.equals("ADMIN")) {
-            return true;
+        if (role != null) {
+            if (role.equals("ADMIN")) {
+                return true;
+            }
         }
         response.sendRedirect(request.getContextPath() + "/");
         return false;

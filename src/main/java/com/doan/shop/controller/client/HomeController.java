@@ -1,10 +1,15 @@
 package com.doan.shop.controller.client;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.doan.shop.controller.Base;
-import com.doan.shop.model.User;
+import com.doan.shop.model.Product;
+import com.doan.shop.repository.ProductRepository;
+
 import jakarta.servlet.http.HttpSession;
 import org.springframework.ui.Model;
 
@@ -12,16 +17,13 @@ import org.springframework.ui.Model;
 @Controller
 @RequestMapping(path = "/")
 public class HomeController extends Base {
+    @Autowired
+    private ProductRepository productRepository;
+
     @RequestMapping("/")
     public String index(Model model, HttpSession session) {
-        model.addAttribute("role", session.getAttribute("role"));
-        return "client/home/index";
-    }
-
-    @RequestMapping("/my")
-    public String my(HttpSession session, Model model) {
-        User user = this.getUserLogin(session);
-        model.addAttribute("fullname", user.getName());
+        List<Product> products = productRepository.findAll();
+        model.addAttribute("products", products); 
         return "client/home/index";
     }
 }

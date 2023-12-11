@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/admin.html}">
+<head>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Đơn hàng <span th:text="${order.id}"></span></h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="py-3">
+                                <p class="mb-3">
+                                    <b>Người nhận:</b> <span th:text="${order.fullname}"></span>
+                                </p>
+                                <p class="mb-3">
+                                    <b>Số điện thoại:</b> <span th:text="${order.phone}"></span>
+                                </p>
+                                <p class="mb-3">
+                                    <b>Địa chỉ:</b> <span th:text="${order.address}"></span>
+                                </p>
+                                <p class="mb-3">
+                                    <b>Tổng số tiền:</b> <span th:text="${order.getTotalPriceStr()}"></span>
+                                </p>
+                                <p class="mb-3">
+                                    <b>Ghi chú:</b> <span th:text="${order.note}"></span>
+                                </p> 
+                                <p class="mb-3">
+                                    <b>Thông báo:</b> <span th:text="${order.message}"></span>
+                                </p>       
+                            </div>
+                            <div class="d-flex justify-content-center mb-3" th:switch="${order.status}">
+                                <div class="d-flex justify-content-center" th:case="0">
+                                    <a th:href="@{/admin/order/cancel/{id}(id=${order.id})}" class="btn btn-danger mx-1">Hủy</a>
+                                    <a th:href="@{/admin/order/accept/{id}(id=${order.id})}" class="btn btn-success mx-1">Chấp nhận</a>
+                                </div>
+                                <div class="d-flex justify-content-center" th:case="3">
+                                    <h5 class="text-center">Đơn hàng đã bị hủy.</h5>
+                                </div>
+                                <div class="d-flex justify-content-center" th:case="1">
+                                    <a th:href="@{/admin/order/cancel/{id}(id=${order.id})}" class="btn btn-danger mx-1">Hủy</a>
+                                    <a th:href="@{/admin/order/success/{id}(id=${order.id})}" class="btn btn-success mx-1">Giao thành công</a>
+                                </div>  
+                                <div class="d-flex justify-content-center" th:case="2">
+                                    <h5 class="text-center">Đơn hàng đã giao thành công.</h5>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <div id="datatable_wrapper" class="dataTables_wrapper">
+                                    <table id="datatable" class="table data-table table-striped dataTable" role="grid" aria-describedby="datatable_info">
+                                        <thead>
+                                            <tr class="ligth" role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                    colspan="1" aria-sort="ascending"
+                                                    style="width: 158.094px;">Sản phẩm</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                    colspan="1" style="width: 247.594px;">Giá</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                    colspan="1" style="width: 118.938px;">Số lượng</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                colspan="1" style="width: 39.7031px;">Thành tiền</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr role="row" class="odd" th:each="product : ${orders}">
+                                                <td class="sorting_1">
+                                                    <a href="" th:text="${product.name}">
+                                                        <img th:src="${product.image}" alt="" style="width: 50px;">
+                                                    </a>
+                                                </td>
+                                                <td th:text="${product.getPriceStr()}"></td>
+                                                <td th:text="${product.quantity}"></td>
+                                                <td th:text="${product.getTotalPriceStr()}"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -45,7 +45,7 @@
                                 <th scope="row"><a th:href="@{/order/detail/{id}(id=${order.id})}">Đơn hàng <span th:text="${order.id}"></span></a></th>
                                 <td th:text="${order.getTimeCreate()}"></td>
                                 <td>
-                                    <div class="text-center" style="width: max-content;">[(${order.getStatusStr(false)})]</div>
+                                    <div class="text-center" style="width: max-content;">[(${order.getStatusStr()})]</div>
                                 </td>
                                 <td th:text="${order.message}"></td>
                             </tr>

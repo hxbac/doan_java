@@ -36,20 +36,17 @@ public class Orders {
     @JoinColumn(name = "userID")
     private User user;
 
-    public String getStatusStr(boolean isAdminPage) {
+    public String getStatusStr() {
         switch (this.status) {
             case 0:
                 String str = "</br> <a href='/order/cancel/"+ id +"'>Hủy đặt hàng</a>";
-                if (isAdminPage) {
-                    str = "";
-                }
-                return "Chờ admin xác nhận." + str;
+                return "<span class=\"text-nowrap badge badge-info\">Chờ xác nhận</span>" + str;
             case 3:
-                return "Đơn đặt hàng đã bị hủy.";
+                return "<span class=\"text-nowrap badge badge-danger\">Đã hủy</span>";
             case 1:
-                return "Đơn đặt hàng đã được xác nhận. Chờ giao hàng.";
+                return "<span class=\"text-nowrap badge badge-warning\">Đang giao hàng</span>";
             case 2:
-                return "Đơn đặt hàng thành công.";
+                return "<span class=\"text-nowrap badge badge-success\">Thành công</span>";
             default:
                 return "Trạng thái không xác định";
         }

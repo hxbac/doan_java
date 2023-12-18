@@ -19,29 +19,30 @@
                                     <table id="datatable" class="table data-table table-striped dataTable" role="grid" aria-describedby="datatable_info">
                                         <thead>
                                             <tr class="ligth" role="row">
-                                                <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                    colspan="1" aria-sort="ascending"
-                                                    style="width: 158.094px;">Mã đơn hàng</th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="datatable" rowspan="1">Mã đơn hàng</th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                    colspan="1" style="width: 247.594px;">Người đặt</th>
+                                                    colspan="1">Người đặt</th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                    colspan="1" style="width: 247.594px;">Số tiền</th>
+                                                    colspan="1">Số tiền</th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                    colspan="1" style="width: 118.938px;">Ngày đặt</th>
+                                                    colspan="1">Ngày đặt</th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                colspan="1" style="width: 39.7031px;">Trạng thái</th>
+                                                colspan="1">Trạng thái</th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                colspan="1" style="width: 39.7031px;">Tin nhắn</th>
+                                                colspan="1">Tin nhắn</th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
+                                                colspan="1"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr role="row" class="odd" th:each="order : ${orders}">
-                                                <td class="sorting_1"><a th:href="@{/admin/order/detail/{id}(id=${order.id})}">Đơn hàng <span th:text="${order.id}" style="color: inherit"></span></a></td>
+                                                <td th:text="${order.id}"></td>
                                                 <td th:text="${order.name}"></td>
                                                 <td th:text="${order.getTotalPriceStr()}"></td>
                                                 <td th:text="${order.getTimeCreate()}" style="text-wrap: nowrap;"></td>
-                                                <td th:text="${order.getStatusStr()}"></td>
+                                                <td>[(${order.getStatusStr()})]</td>
                                                 <td th:text="${order.message}"></td>
+                                                <td><a th:href="@{/admin/order/detail/{id}(id=${order.id})}" class="btn btn-primary text-nowrap">Chi tiết</a></td>
                                             </tr>
                                         </tbody>
                                     </table>

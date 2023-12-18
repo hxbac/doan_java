@@ -39,13 +39,13 @@ public class OrderUserDTO {
     public String getStatusStr() {
         switch (this.status) {
             case 0:
-                return "Chờ admin xác nhận.";
+                return "<span class=\"text-nowrap badge badge-info\">Chờ xác nhận</span>";
             case 3:
-                return "Đơn đặt hàng đã bị hủy.";
+                return "<span class=\"text-nowrap badge badge-danger\">Đã hủy</span>";
             case 1:
-                return "Đơn đặt hàng đã được xác nhận. Chờ giao hàng.";
+                return "<span class=\"text-nowrap badge badge-warning\">Đang giao hàng</span>";
             case 2:
-                return "Đơn đặt hàng thành công.";
+                return "<span class=\"text-nowrap badge badge-success\">Thành công</span>";
             default:
                 return "Trạng thái không xác định";
         }

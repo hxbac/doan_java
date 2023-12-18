@@ -12,7 +12,7 @@ public interface OrderRepository extends JpaRepository<Orders, Long> {
     @Query("SELECT o FROM Orders o JOIN o.user u WHERE u.id = :userId")
     List<Orders> findAllOrdersByUserId(@Param("userId") Long userId);
 
-    @Query("SELECT NEW com.doan.shop.dto.OrderUserDTO(o, u) FROM Orders o JOIN FETCH o.user u")
+    @Query("SELECT NEW com.doan.shop.dto.OrderUserDTO(o, u) FROM Orders o JOIN FETCH o.user u Order By o.id DESC")
     List<OrderUserDTO> findAllWithUser();
 
     @Query(value = "SELECT SUM(total) FROM Orders WHERE status = 2", nativeQuery = true)

@@ -10,14 +10,13 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="header-title">
-                                <h4 class="card-title">Danh sách sản phẩm</h4>
+                                <h4 class="card-title">Danh sách danh mục</h4>
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <div id="datatable_wrapper" class="dataTables_wrapper">
-                                    <a class="btn btn-primary mb-3" href="/admin/product/create">Thêm sản phẩm</a>
-                                    <a class="btn btn-primary mb-3" style="float: right;" href="/admin/category/index">Quản lý danh mục</a>
+                                    <a class="btn btn-primary mb-3" href="/admin/category/create">Thêm danh mục</a>
                                     <table id="datatable" class="table data-table table-striped dataTable" role="grid" aria-describedby="datatable_info">
                                         <thead>
                                             <tr class="ligth" role="row">
@@ -25,25 +24,19 @@
                                                     colspan="1" aria-sort="ascending"
                                                     style="width: 158.094px;">Id</th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                    colspan="1" style="width: 247.594px;">Tên sản phẩm</th>
-                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                    colspan="1" style="width: 118.938px;">Giá</th>
-                                                <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
-                                                    colspan="1" style="width: 118.938px;">Ảnh</th>
+                                                    colspan="1" style="width: 247.594px;">Tên danh mục</th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable" rowspan="1"
                                                     colspan="1" style="width: 39.7031px;">Chức năng</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr role="row" class="odd" th:each="product : ${products}">
-                                                <td class="sorting_1" th:text="${product.id}"></td>
-                                                <td th:text="${product.name}"></td>
-                                                <td th:text="${product.price}"></td>
-                                                <td><img th:src="${product.image}" height="100" alt=""></td>
+                                            <tr role="row" class="odd" th:each="category : ${categories}">
+                                                <td class="sorting_1" th:text="${category.id}"></td>
+                                                <td th:text="${category.name}"></td>
                                                 <td>
                                                     <div class="d-flex">
-                                                        <a th:href="@{/admin/product/edit/{id}(id=${product.id})}" class="btn btn-warning">Sửa</a>
-                                                        <a th:href="@{/admin/product/delete/{id}(id=${product.id})}" class="btn btn-danger mx-2">Xoá</a>
+                                                        <a th:href="@{/admin/category/edit/{id}(id=${category.id})}" class="btn btn-warning">Sửa</a>
+                                                        <a th:href="@{/admin/category/delete/{id}(id=${category.id})}" class="btn btn-danger mx-2">Xoá</a>
                                                     </div>
                                                 </td>
                                             </tr>

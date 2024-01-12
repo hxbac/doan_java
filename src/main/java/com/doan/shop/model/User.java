@@ -27,18 +27,6 @@ public class User {
         this.role = role;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", address='" + address + '\'' +
-                ", role='" + role + '\'' +
-                '}';
-    }
-
     public Long getId() {
         return id;
     }

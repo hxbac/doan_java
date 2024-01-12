@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Product {
@@ -16,26 +18,28 @@ public class Product {
     private String image;
     private Long price;
     private String description;
+    private String memory;
+    private String ram;
+    private String cpu;
+    private String screen;
+
+    @ManyToOne
+    @JoinColumn(name = "categoryID")
+    private Category category;
 
     public Product() {
     }
 
-    public Product(String name, String image, Long price, String description) {
+    public Product(String name, String image, Long price, String description, Category category, String memory, String ram, String cpu, String screen) {
         this.name = name;
         this.image = image;
         this.price = price;
         this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", image='" + image + '\'' +
-                ", price='" + price + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        this.category = category;
+        this.memory = memory;
+        this.ram = ram;
+        this.cpu = cpu;
+        this.screen = screen;
     }
 
     public String getPriceStr() {
@@ -81,5 +85,45 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public String getMemory() {
+        return memory;
+    }
+
+    public void setMemory(String memory) {
+        this.memory = memory;
+    }
+
+    public String getRam() {
+        return ram;
+    }
+
+    public void setRam(String ram) {
+        this.ram = ram;
+    }
+
+    public String getCpu() {
+        return cpu;
+    }
+
+    public void setCpu(String cpu) {
+        this.cpu = cpu;
+    }
+
+    public String getScreen() {
+        return screen;
+    }
+
+    public void setScreen(String screen) {
+        this.screen = screen;
     }
 }

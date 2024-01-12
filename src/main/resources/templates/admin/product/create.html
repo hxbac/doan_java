@@ -20,6 +20,12 @@
                                     <input type="text" class="form-control" th:field="*{name}" name="name">
                                 </div>
                                 <div class="form-group">
+                                    <label>Danh mục</label>
+                                    <select class="form-control mb-3" name="categoryID" required>
+                                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="pwd">Ảnh</label>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" name="inputImage" id="input-select-file">
@@ -33,6 +39,36 @@
                                 <div class="form-group">
                                     <label for="pwd">Mô tả</label>
                                     <textarea th:field="*{description}" name="description" id="" cols="30" rows="10"></textarea>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="validationDefault01">Màn hình</label>
+                                    <input type="text" class="form-control" required id="validationDefault01" th:field="*{screen}" name="screen" >
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="validationDefault01">Cpu</label>
+                                    <input type="text" class="form-control" required id="validationDefault01" th:field="*{cpu}" name="cpu" >
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="validationDefault01">Ram</label>
+                                    <select class="form-control mb-3" th:field="*{ram}" name="ram">
+                                        <option value="4" checked>4 GB</option>
+                                        <option value="8" >8 GB</option>
+                                        <option value="16" >16 GB</option>
+                                        <option value="32" >32 GB</option>
+                                        <option value="64" >64 GB</option>
+                                        <option value="128" >128 GB</option>
+                                        <option value="256" >256 GB</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="validationDefault01">Bộ nhớ</label>
+                                    <select class="form-control mb-3" th:field="*{memory}" name="memory">
+                                        <option value="128" checked>128 GB</option>
+                                        <option value="256" >256 GB</option>
+                                        <option value="512" >512 GB</option>
+                                        <option value="1024" >1024 GB</option>
+                                        <option value="2048" >2056 GB</option>
+                                    </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Thêm</button>
                                 <a href="/admin/product/index" class="btn bg-danger">Quay lại</a>

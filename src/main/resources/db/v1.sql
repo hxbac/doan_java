@@ -21,12 +21,23 @@ INSERT INTO user (name, email, password, address, role) VALUES
 ('Alice Williams', 'user4@gmail.com', '25d55ad283aa400af464c76d713c07ad', '101 Pine St', 'USER'),
 ('Charlie Brown', 'user5@gmail.com', '25d55ad283aa400af464c76d713c07ad', '321 Cedar St', 'USER');
 
+DROP TABLE IF EXISTS category;
+CREATE TABLE category (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL
+);
+INSERT INTO category (name) VALUES 
+('Máy tính văn phòng'),
+('Máy tính đồ họa'),
+('Máy tính gaming');
+
 DROP TABLE IF EXISTS product;
 CREATE TABLE product (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     image VARCHAR(255),
     price BIGINT,
+    categoryID BIGINT,
     description TEXT
 );
 INSERT INTO product (name, image, price, description) VALUES 

@@ -1,3 +1,18 @@
+.product-action {
+  opacity: 0;
+}
+
+.product-img:hover .product-action {
+  cursor: pointer;
+  opacity: 1;
+  transition: 0.3s linear;
+}
+
+.product-img .product-action * {
+  color: #000 !important;
+  text-decoration: none !important;
+}
+
 #loader {
     position: fixed;
     z-index: 999999;
@@ -9694,7 +9709,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .product-item:hover .product-action {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.85);
 }
 
 .product-item:hover .product-action a.btn:first-child {

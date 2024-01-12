@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import jakarta.servlet.http.HttpSession;
 import com.doan.shop.model.Menu;
+import com.doan.shop.model.Category;
 import com.doan.shop.model.User;
 import com.doan.shop.repository.MenuRepository;
+import com.doan.shop.repository.CategoryRepository;
 import com.doan.shop.repository.UserRepository;
 
 @Controller
@@ -19,6 +21,8 @@ public class Base {
     private MenuRepository menuRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @ModelAttribute("userLogin")
     public User userLogin(HttpSession session) {
@@ -33,6 +37,11 @@ public class Base {
     @ModelAttribute("menus")
     public List<Menu> getMenus() {
         return menuRepository.findAll();
+    }
+
+    @ModelAttribute("categories")
+    public List<Category> getCategories() {
+        return categoryRepository.findAll();
     }
 
     public User getUserLogin(HttpSession session) {
